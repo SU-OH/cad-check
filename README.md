@@ -38,8 +38,8 @@ cad-check/
 ### 사전 요구사항
 
 - Node.js 18+ 
-- Python 3.9+
 - Git
+- Vercel CLI (선택사항)
 
 ### 1. 프로젝트 클론
 
@@ -48,29 +48,7 @@ git clone <repository-url>
 cd cad-check
 ```
 
-### 2. 백엔드 설정
-
-```bash
-cd backend
-
-# 가상환경 생성 및 활성화 (Windows)
-python -m venv .venv
-.venv\Scripts\activate
-
-# 가상환경 생성 및 활성화 (Linux/macOS)  
-python -m venv .venv
-source .venv/bin/activate
-
-# 의존성 설치
-pip install -r requirements.txt
-
-# 서버 실행
-python app/main.py
-```
-
-백엔드 서버가 `http://localhost:8000`에서 실행됩니다.
-
-### 3. 프론트엔드 설정
+### 2. 통합 개발 환경 (권장)
 
 ```bash
 cd frontend
@@ -78,11 +56,27 @@ cd frontend
 # 의존성 설치
 npm install
 
-# 개발 서버 실행
+# Vercel CLI 설치 (Serverless Functions 테스트용)
+npm i -g vercel
+
+# 통합 개발서버 실행 (프론트엔드 + API)
+vercel dev
+```
+
+**통합 개발서버**: `http://localhost:3000`
+- 프론트엔드: `http://localhost:3000`
+- API: `http://localhost:3000/api/*`
+
+### 3. 프론트엔드만 개발 (선택사항)
+
+```bash
+cd frontend
+
+# 프론트엔드 개발서버만 실행
 npm run dev
 ```
 
-프론트엔드가 `http://localhost:5173`에서 실행됩니다.
+**프론트엔드**: `http://localhost:5173` (API 기능 제한)
 
 ## 📋 현재 기능
 
@@ -114,23 +108,12 @@ npm run dev
 
 ## 🔧 개발 명령어
 
-### 백엔드
-```bash
-cd backend
-
-# 개발 서버 실행
-python app/main.py
-
-# 의존성 설치
-pip install -r requirements.txt
-```
-
-### 프론트엔드
+### 통합 개발
 ```bash
 cd frontend
 
-# 개발 서버 실행
-npm run dev
+# 통합 개발서버 (프론트엔드 + API)
+vercel dev
 
 # 빌드
 npm run build
@@ -139,16 +122,23 @@ npm run build
 npm run preview
 ```
 
+### 배포
+```bash
+# Vercel에 배포
+vercel --prod
+```
+
+자세한 배포 방법은 [DEPLOYMENT.md](DEPLOYMENT.md) 참고
+
 ## 🌐 API 엔드포인트
 
-### 백엔드 API (http://localhost:8000)
-- `GET /` - API 정보
-- `GET /health` - 헬스체크
-- `POST /upload` - 파일 업로드
-- `GET /files` - 업로드된 파일 목록
+### Serverless API
+- `GET /api/` - API 정보
+- `GET /api/health` - 헬스체크  
+- `POST /api/upload` - 파일 업로드
 
-### API 문서
-FastAPI 자동 생성 문서: `http://localhost:8000/docs`
+**로컬**: `http://localhost:3000/api/*`  
+**배포**: `https://your-app.vercel.app/api/*`
 
 ## 📝 지원 파일 형식
 

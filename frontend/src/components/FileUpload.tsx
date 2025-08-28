@@ -37,7 +37,8 @@ const FileUpload: React.FC<FileUploadProps> = ({ onUpload, onError }) => {
       const formData = new FormData()
       formData.append('file', file)
 
-      const response = await axios.post('http://localhost:8000/upload', formData, {
+      const apiUrl = import.meta.env.VITE_API_URL || '/api'
+      const response = await axios.post(`${apiUrl}/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

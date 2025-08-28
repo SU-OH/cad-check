@@ -1,0 +1,2 @@
+# Vercel serverless functions용 Python 라이브러리
+# 기본적으로 필요한 라이브러리만 포함 (파일 처리용)
